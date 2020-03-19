@@ -1,12 +1,7 @@
 #include <raylib.h>
 #include <stdio.h>
 #include "ui.h"
-
-#define SCREEN_WIDTH 1145
-#define SCREEN_HEIGHT 795
-#define GRID_SIZE 15
-#define BORDER_SIZE 20
-#define STATUS_BAR_SIZE 25
+#include "constants.h"
 
 void InitBase()
 {
@@ -21,8 +16,8 @@ void InitBase()
 
 void DrawStatusBar()
 {
-    DrawRectangle(0, 0, SCREEN_WIDTH, STATUS_BAR_SIZE, BLACK);
-    DrawLine(0, STATUS_BAR_SIZE, SCREEN_WIDTH, STATUS_BAR_SIZE, RAYWHITE);
+    DrawRectangle(0, 0, WINDOW_WIDTH, STATUS_BAR_SIZE, BLACK);
+    DrawLine(0, STATUS_BAR_SIZE, WINDOW_WIDTH, STATUS_BAR_SIZE, RAYWHITE);
 }
 
 void DrawGeneration(char *generationStr)
@@ -40,19 +35,19 @@ void DrawGrids()
 {
     int x1, x2, y1, y2;
     x1 = BORDER_SIZE;
-    x2 = SCREEN_WIDTH,
+    x2 = WINDOW_WIDTH,
     y1 = y2 = STATUS_BAR_SIZE + BORDER_SIZE + GRID_SIZE;
 
-    for (; y1 < SCREEN_HEIGHT; y1 += GRID_SIZE, y2 += GRID_SIZE)
+    for (; y1 < WINDOW_HEIGHT; y1 += GRID_SIZE, y2 += GRID_SIZE)
     {
         DrawLine(x1, y1, x2, y2, BLACK);
     }
 
     x1 = x2 = BORDER_SIZE + GRID_SIZE;
     y1 = STATUS_BAR_SIZE + BORDER_SIZE;
-    y2 = SCREEN_HEIGHT;
+    y2 = WINDOW_HEIGHT;
 
-    for (; x1 < SCREEN_WIDTH; x1 += GRID_SIZE, x2 += GRID_SIZE)
+    for (; x1 < WINDOW_WIDTH; x1 += GRID_SIZE, x2 += GRID_SIZE)
     {
         DrawLine(x1, y1, x2, y2, BLACK);
     }
@@ -60,8 +55,8 @@ void DrawGrids()
 
 void DrawBorders()
 {
-    DrawRectangle(0, STATUS_BAR_SIZE, SCREEN_WIDTH, BORDER_SIZE, BLACK);
-    DrawRectangle(0, STATUS_BAR_SIZE, BORDER_SIZE, SCREEN_HEIGHT, BLACK);
+    DrawRectangle(0, STATUS_BAR_SIZE, WINDOW_WIDTH, BORDER_SIZE, BLACK);
+    DrawRectangle(0, STATUS_BAR_SIZE, BORDER_SIZE, WINDOW_HEIGHT, BLACK);
 }
 
 void DrawScaleX()
@@ -69,7 +64,7 @@ void DrawScaleX()
     int x = BORDER_SIZE, y = STATUS_BAR_SIZE + 5, size = 6, c = 1, xOffSet = 0;
     char s[3];
 
-    while (x < SCREEN_WIDTH)
+    while (x < WINDOW_WIDTH)
     {
         sprintf(s, "%d", c);
 
@@ -85,7 +80,7 @@ void DrawScaleY()
     int y = STATUS_BAR_SIZE + BORDER_SIZE, size = 6, c = 1, xOffSet = 0;
     char s[3];
 
-    while (y < SCREEN_HEIGHT)
+    while (y < WINDOW_HEIGHT)
     {
         sprintf(s, "%d", c);
 
@@ -99,12 +94,12 @@ void DrawScaleY()
 void DrawMouseTrace()
 {
     Vector2 v = GetMousePosition();
-    int x = v.x <= SCREEN_WIDTH && v.x >= 0;
-    int y =v.y <= SCREEN_HEIGHT && v.y >= STATUS_BAR_SIZE;
+    int x = v.x <= WINDOW_WIDTH && v.x >= 0;
+    int y =v.y <= WINDOW_HEIGHT && v.y >= STATUS_BAR_SIZE;
     if (x && y)
     {
-        DrawLine(v.x, STATUS_BAR_SIZE, v.x, SCREEN_HEIGHT, RED);
-        DrawLine(0, v.y, SCREEN_WIDTH, v.y, RED);
+        DrawLine(v.x, STATUS_BAR_SIZE, v.x, WINDOW_HEIGHT, RED);
+        DrawLine(0, v.y, WINDOW_WIDTH, v.y, RED);
     }
 }
 
