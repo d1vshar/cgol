@@ -8,6 +8,14 @@ https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
 
 There are hundred of videos on youtube showing different algorithms and patterns.
 
+### Building
+
+Open your the project root in terminal and type in
+
+```
+make && ./build/main
+```
+
 ## Contribution
 
 You can start a pull request directly to master branch as this project is still no where near completion.
