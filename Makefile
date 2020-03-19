@@ -1,9 +1,9 @@
 all:
 	mkdir -p build
-	gcc -o build/cgol -l raylib src/main.c src/ui.c src/ui.h
+	gcc src/* -l raylib -o build/cgol
 clean:
 	rm -r -f build
 	rn -r -f debug_build
 debug:
 	mkdir -p debug_build
-	gcc -g -o debug_build/cgol -l raylib src/main.c src/ui.c src/ui.h
+	gcc src/* -l raylib -o debug_build/cgol -g
