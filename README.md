@@ -13,7 +13,13 @@ There are hundred of videos on youtube showing different algorithms and patterns
 Open your the project root in terminal and type in
 
 ```
-make && ./build/main
+make && ./build/cgol
+```
+
+You can use the debug target too
+
+```
+make debug && ./debug_build/cgol
 ```
 
 ## Contribution
