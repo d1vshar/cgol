@@ -1,55 +1,12 @@
 #include <raylib.h>
 #include <stdio.h>
+#include "ui.h"
 
 #define SCREEN_WIDTH 1145
 #define SCREEN_HEIGHT 795
 #define GRID_SIZE 15
 #define BORDER_SIZE 20
 #define STATUS_BAR_SIZE 25
-
-void InitBase();
-void DrawStatusBar();
-void DrawGeneration(char *generationStr);
-void DrawGrids();
-void DrawBorders();
-void DrawScaleX();
-void DrawScaleY();
-void DrawMouseTrace();
-Vector2 TransformToScreenPoint(int x, int y);
-Vector2 TransformToGridPoint(int x, int y);
-
-int main(void)
-{
-    double lastRecordedTime = 0;
-    double generation = 88888888.00;
-    char generationStr[12];
-    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "cgol");
-
-    SetTargetFPS(60);
-
-    while (!WindowShouldClose())
-    {
-        BeginDrawing();
-
-        double currentTime = GetTime();
-        if (currentTime - lastRecordedTime > 1.0)
-        {
-            sprintf(generationStr, "%.0lf", generation);
-            printf("tick - %.0lf\n", generation);
-            lastRecordedTime = currentTime;
-            generation += 1.0;
-        }
-        InitBase();
-        DrawGeneration(generationStr);
-        DrawMouseTrace();
-
-        EndDrawing();
-    }
-
-    CloseWindow();
-
-    return 0;
-}
 
 void InitBase()
 {
@@ -74,7 +31,6 @@ void DrawGeneration(char *generationStr)
     int nPixel = 2 + MeasureText("Generation:", 21);
 
     int m = MeasureText(generationStr, 21);
-    printf("%d\n", m);
     int offSet = 120 - m;
     
     DrawText(generationStr, nPixel + offSet, 2, 21, RAYWHITE);
@@ -108,11 +64,6 @@ void DrawBorders()
     DrawRectangle(0, STATUS_BAR_SIZE, BORDER_SIZE, SCREEN_HEIGHT, BLACK);
 }
 
-/*******************************************************************************
- * Draw scale on X axis from 1...N where N is determined by 
- * N = (SCREEN_WIDTH - BORDER_SIZE) / GRID_SIZE
- * 
- *******************************************************************************/
 void DrawScaleX()
 {
     int x = BORDER_SIZE, y = STATUS_BAR_SIZE + 5, size = 6, c = 1, xOffSet = 0;
@@ -129,11 +80,6 @@ void DrawScaleX()
     }
 }
 
-/*******************************************************************************
- * Draw scale on Y axis from 1...N where N is determined by 
- * N = (SCREEN_HEIGHT - BORDER_SIZE) / GRID_SIZE
- * 
- *******************************************************************************/
 void DrawScaleY()
 {
     int y = STATUS_BAR_SIZE + BORDER_SIZE, size = 6, c = 1, xOffSet = 0;
@@ -162,10 +108,6 @@ void DrawMouseTrace()
     }
 }
 
-/*******************************************************************************
- * Tranforms Grid coordinates to actual top left screen coordinates
- * 
- *******************************************************************************/
 Vector2 TransformToScreenPoint(int x, int y)
 {
     int nX, nY;
@@ -179,10 +121,6 @@ Vector2 TransformToScreenPoint(int x, int y)
     return v;
 }
 
-/*******************************************************************************
- * Transforms actual top left screen coordinates to grid coordinates
- * 
- *******************************************************************************/
 Vector2 TransformToGridPoint(int x, int y)
 {
     int nX, nY;
