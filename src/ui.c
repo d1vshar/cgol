@@ -22,7 +22,7 @@ void UpdateGrids(struct Grid grids[][GRID_COLS]) {
     for (i = 0; i < GRID_ROWS; i++) {
         for (j = 0; j < GRID_COLS; j++) {
             if (grids[i][j].filled) {
-                vTmp = TransformToScreenPoint(j, i);
+                vTmp = TransformToScreenPoint(j + 1, i + 1) ;
                 DrawRectangle(vTmp.x, vTmp.y, GRID_SIZE, GRID_SIZE, BLACK); 
             }
         }
@@ -124,8 +124,8 @@ Vector2 TransformToScreenPoint(int x, int y)
     nX = BORDER_SIZE;
     nY = BORDER_SIZE + STATUS_BAR_SIZE;
 
-    nX += GRID_SIZE * (x);
-    nY += GRID_SIZE * (y);
+    nX += GRID_SIZE * (x - 1);
+    nY += GRID_SIZE * (y - 1);
 
     Vector2 v = {nX, nY};
 
@@ -136,8 +136,8 @@ Vector2 TransformToGridPoint(int x, int y)
 {
     int nX, nY;
 
-    nX = (x - BORDER_SIZE) / GRID_SIZE;
-    nY = (y - STATUS_BAR_SIZE - BORDER_SIZE) / GRID_SIZE;
+    nX = (x - BORDER_SIZE) / GRID_SIZE + 1;
+    nY = (y - STATUS_BAR_SIZE - BORDER_SIZE) / GRID_SIZE + 1;
 
     Vector2 v = {nX, nY};
 
