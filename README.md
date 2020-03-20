@@ -10,6 +10,15 @@ There are hundred of videos on youtube showing different algorithms and patterns
 
 ### Building
 
+Create a `config.txt` file in the root folder for initial grid config.
+
+syntax: `x,y` on each line
+```
+1,10
+2,4
+2,6
+```
+
 Open your the project root in terminal and type in
 
 ```

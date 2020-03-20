@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "ui.h"
 #include "constants.h"
+#include "structs.h"
 
 void InitBase()
 {
@@ -12,6 +13,20 @@ void InitBase()
     DrawBorders();
     DrawScaleX();
     DrawScaleY();
+}
+
+void UpdateGrids(struct Grid grids[][GRID_COLS]) {
+    int i, j, x, y;
+    Vector2 vTmp;
+
+    for (i = 0; i < GRID_ROWS; i++) {
+        for (j = 0; j < GRID_COLS; j++) {
+            if (grids[i][j].filled) {
+                vTmp = TransformToScreenPoint(j, i);
+                DrawRectangle(vTmp.x, vTmp.y, GRID_SIZE, GRID_SIZE, BLACK); 
+            }
+        }
+    }
 }
 
 void DrawStatusBar()
@@ -35,7 +50,7 @@ void DrawGrids()
 {
     int x1, x2, y1, y2;
     x1 = BORDER_SIZE;
-    x2 = WINDOW_WIDTH,
+    x2 = WINDOW_WIDTH;
     y1 = y2 = STATUS_BAR_SIZE + BORDER_SIZE + GRID_SIZE;
 
     for (; y1 < WINDOW_HEIGHT; y1 += GRID_SIZE, y2 += GRID_SIZE)
@@ -106,10 +121,11 @@ void DrawMouseTrace()
 Vector2 TransformToScreenPoint(int x, int y)
 {
     int nX, nY;
-    nX = nY = BORDER_SIZE;
+    nX = BORDER_SIZE;
+    nY = BORDER_SIZE + STATUS_BAR_SIZE;
 
-    nX += GRID_SIZE * (x - 1);
-    nY += GRID_SIZE * (y - 1);
+    nX += GRID_SIZE * (x);
+    nY += GRID_SIZE * (y);
 
     Vector2 v = {nX, nY};
 
@@ -120,8 +136,8 @@ Vector2 TransformToGridPoint(int x, int y)
 {
     int nX, nY;
 
-    nX = ((x - BORDER_SIZE) / GRID_SIZE) + 1;
-    nY = ((y - BORDER_SIZE) / GRID_SIZE) + 1;
+    nX = (x - BORDER_SIZE) / GRID_SIZE;
+    nY = (y - STATUS_BAR_SIZE - BORDER_SIZE) / GRID_SIZE;
 
     Vector2 v = {nX, nY};
 
