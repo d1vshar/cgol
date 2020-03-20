@@ -15,15 +15,19 @@ void InitBase()
     DrawScaleY();
 }
 
-void UpdateGrids(struct Grid grids[][GRID_COLS]) {
+void UpdateGrids(struct Grid buf[][GRID_COLS])
+{
     int i, j, x, y;
     Vector2 vTmp;
 
-    for (i = 0; i < GRID_ROWS; i++) {
-        for (j = 0; j < GRID_COLS; j++) {
-            if (grids[i][j].filled) {
-                vTmp = TransformToScreenPoint(j + 1, i + 1) ;
-                DrawRectangle(vTmp.x, vTmp.y, GRID_SIZE, GRID_SIZE, BLACK); 
+    for (i = 0; i < GRID_ROWS; i++)
+    {
+        for (j = 0; j < GRID_COLS; j++)
+        {
+            if (buf[i][j].filled)
+            {
+                vTmp = TransformToScreenPoint(j + 1, i + 1);
+                DrawRectangle(vTmp.x, vTmp.y, GRID_SIZE, GRID_SIZE, BLACK);
             }
         }
     }
@@ -42,7 +46,7 @@ void DrawGeneration(char *generationStr)
 
     int m = MeasureText(generationStr, 21);
     int offSet = 120 - m;
-    
+
     DrawText(generationStr, nPixel + offSet, 2, 21, RAYWHITE);
 }
 
@@ -110,7 +114,7 @@ void DrawMouseTrace()
 {
     Vector2 v = GetMousePosition();
     int x = v.x <= WINDOW_WIDTH && v.x >= 0;
-    int y =v.y <= WINDOW_HEIGHT && v.y >= STATUS_BAR_SIZE;
+    int y = v.y <= WINDOW_HEIGHT && v.y >= STATUS_BAR_SIZE;
     if (x && y)
     {
         DrawLine(v.x, STATUS_BAR_SIZE, v.x, WINDOW_HEIGHT, RED);

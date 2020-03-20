@@ -21,7 +21,7 @@ int main(void)
         {
             vTmp.x = j + 1;
             vTmp.y = i + 1;
-            struct Grid g = {vTmp,0};
+            struct Grid g = {vTmp, 0};
             grids[i][j].pos = vTmp;
             grids[i][j].filled = 0;
         }
