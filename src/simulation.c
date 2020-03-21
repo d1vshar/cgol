@@ -1,6 +1,7 @@
 #include "constants.h"
 #include "structs.h"
 #include "simulation.h"
+#include <stdio.h>
 
 /*
  * Returns count of live neighbours around the provided coordinates.
@@ -13,6 +14,7 @@
  * 
  */
 int GetLiveNeighbours(struct Grid buf[][GRID_COLS], int gX, int gY);
+void GetDirFlags(int *dFlags, int gX, int gY);
 
 void SimulateGeneration(struct Grid buf[][GRID_COLS])
 {
@@ -43,33 +45,9 @@ void SimulateGeneration(struct Grid buf[][GRID_COLS])
 
 int GetLiveNeighbours(struct Grid buf[][GRID_COLS], int gX, int gY)
 {
-    int dFlags[8] = {1, 1, 1, 1, 1, 1, 1, 1}, i, j;
-    int count;
-
-    if (gY < 1)
-    {
-        dFlags[0] = 0;
-        dFlags[1] = 0;
-        dFlags[7] = 0;
-    }
-    if (gX > GRID_COLS)
-    {
-        dFlags[1] = 0;
-        dFlags[2] = 0;
-        dFlags[3] = 0;
-    }
-    if (gY > GRID_ROWS)
-    {
-        dFlags[3] = 0;
-        dFlags[4] = 0;
-        dFlags[5] = 0;
-    }
-    if (gX < 1)
-    {
-        dFlags[5] = 0;
-        dFlags[6] = 0;
-        dFlags[7] = 0;
-    }
+    int dFlags[8] = {1,1,1,1,1,1,1,1}, i, j, count = 0;
+    GetDirFlags(dFlags,gX,gY);
+    gX--; gY--;
 
     for (i = 0; i < 8; i++)
     {
@@ -78,40 +56,66 @@ int GetLiveNeighbours(struct Grid buf[][GRID_COLS], int gX, int gY)
             switch (i)
             {
             case 0:
-                if (buf[gX][gY - 1].filled)
+                if (buf[gY - 1][gX].filled)
                     count++;
                 break;
             case 1:
-                if (buf[gX + 1][gY - 1].filled)
+                if (buf[gY - 1][gX + 1].filled)
                     count++;
                 break;
             case 2:
-                if (buf[gX + 1][gY].filled)
+                if (buf[gY][gX + 1].filled)
                     count++;
                 break;
             case 3:
-                if (buf[gX + 1][gY + 1].filled)
+                if (buf[gY + 1][gX + 1].filled)
                     count++;
                 break;
             case 4:
-                if (buf[gX][gY + 1].filled)
+                if (buf[gY + 1][gX].filled)
                     count++;
                 break;
             case 5:
-                if (buf[gX - 1][gY + 1].filled)
+                if (buf[gY + 1][gX - 1].filled)
                     count++;
                 break;
             case 6:
-                if (buf[gX - 1][gY].filled)
+                if (buf[gY][gX - 1].filled)
                     count++;
                 break;
             case 7:
-                if (buf[gX - 1][gY - 1].filled)
+                if (buf[gY - 1][gX - 1].filled)
                     count++;
                 break;
             }
         }
     }
-
     return count;
+}
+
+void GetDirFlags(int *dFlags, int gX, int gY) {
+    if (gY <= 1)
+    {
+        dFlags[0] = 0;
+        dFlags[1] = 0;
+        dFlags[7] = 0;
+    }
+    if (gX >= GRID_COLS)
+    {
+        dFlags[1] = 0;
+        dFlags[2] = 0;
+        dFlags[3] = 0;
+    }
+    if (gY >= GRID_ROWS)
+    {
+        dFlags[3] = 0;
+        dFlags[4] = 0;
+        dFlags[5] = 0;
+    }
+    if (gX <= 1)
+    {
+        dFlags[5] = 0;
+        dFlags[6] = 0;
+        dFlags[7] = 0;
+    }
 }
