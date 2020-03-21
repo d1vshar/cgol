@@ -4,6 +4,7 @@
 #include "constants.h"
 #include "config.h"
 #include "structs.h"
+#include "simulation.h"
 
 int main(void)
 {
@@ -12,7 +13,7 @@ int main(void)
     double generation = 1.00;
     char generationStr[12];
     Vector2 vTmp;
-    struct Grid grids[GRID_ROWS][GRID_COLS];
+    struct Grid buf[GRID_ROWS][GRID_COLS];
 
     int i, j;
     for (i = 0; i < GRID_ROWS; i++)
@@ -22,12 +23,12 @@ int main(void)
             vTmp.x = j + 1;
             vTmp.y = i + 1;
             struct Grid g = {vTmp, 0};
-            grids[i][j].pos = vTmp;
-            grids[i][j].filled = 0;
+            buf[i][j].pos = vTmp;
+            buf[i][j].filled = 0;
         }
     }
 
-    ReadConfig(grids, "config.txt");
+    ReadConfig(buf, "config.txt");
 
     InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "cgol");
 
@@ -40,12 +41,13 @@ int main(void)
         double currentTime = GetTime();
         if (currentTime - lastRecordedTime > 0.125)
         {
+            SimulateGeneration(buf);
             sprintf(generationStr, "%.0lf", generation);
             lastRecordedTime = currentTime;
             generation += 1.0;
         }
         InitBase();
-        UpdateGrids(grids);
+        UpdateGrids(buf);
         DrawGeneration(generationStr);
         DrawMouseTrace();
 
