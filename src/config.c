@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "structs.h"
 #include "constants.h"
+#include "config.h"
 
 void ReadConfig(struct Grid buf[][GRID_COLS], char *filename)
 {
