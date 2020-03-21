@@ -1,8 +1,8 @@
-# cgol - A Connway's Game of Life simulator - WIP
+# cgol - A Conway's Game of Life simulator - WIP
 
 cgol is a simulator written in C using raylib graphics library. 
 
-### Connway's Game of Life
+### Conway's Game of Life
 
 https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
 
