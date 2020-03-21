@@ -14,6 +14,11 @@
  * 
  */
 int GetLiveNeighbours(struct Grid buf[][GRID_COLS], int gX, int gY);
+
+/*
+ * Initializes direction flags by analyzing the given coordinate's position.
+ * 
+ */
 void GetDirFlags(int *dFlags, int gX, int gY);
 
 void SimulateGeneration(struct Grid buf[][GRID_COLS])
