@@ -1,12 +1,13 @@
 #include <raylib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include "ui.h"
 #include "constants.h"
 #include "config.h"
 #include "structs.h"
 #include "simulation.h"
 
-int main(void)
+int main(int argc, char *argv[])
 {
 
     double lastRecordedTime = 0;
@@ -14,6 +15,11 @@ int main(void)
     char generationStr[12];
     Vector2 vTmp;
     struct Grid buf[GRID_ROWS][GRID_COLS];
+
+    if (argc != 2) {
+	printf("Usage: %s <grid config>\n", argv[0]);
+	exit(1);
+    }
 
     int i, j;
     for (i = 0; i < GRID_ROWS; i++)
@@ -28,7 +34,7 @@ int main(void)
         }
     }
 
-    ReadConfig(buf, "config.txt");
+    ReadConfig(buf, argv[1]);
 
     InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "cgol");
 
