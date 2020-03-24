@@ -33,6 +33,6 @@ make debug && ./debug_build/cgol
 
 ## Contribution
 
-You can start a pull request directly to master branch as this project is still no where near completion.
-
 If you want some features to implement, feel free to ask for it in an Issue. 
+
+![](https://media.giphy.com/media/joeyN2U9mvVy99DVhU/giphy.gif)
